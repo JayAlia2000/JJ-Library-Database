@@ -1,0 +1,83 @@
+erDiagram
+BUILDINGS ||–|{ ROOMS : contains
+STAFF |o–o{ BUILDINGS : manages
+ROOMS ||–o{ EQUIPMENT : holds
+ROOMS ||–o{ SECTIONS : houses
+STAFF |o–o{ SECTIONS : oversees
+SECTIONS ||–o{ BOOKS : shelves
+GENRES ||–o{ BOOKS : classifies
+BOOKS ||–|{ BOOK_AUTHORS : has
+AUTHORS ||–|{ BOOK_AUTHORS : writes
+MEMBERS ||–o{ CHECKOUTS : makes
+BOOKS ||–o{ CHECKOUTS : “is checked out in”
+
+```
+BUILDINGS {
+    int building_id PK
+    varchar name
+    varchar address
+    int manager_staff_id FK
+}
+ROOMS {
+    int room_id PK
+    varchar room_number
+    int building_id FK
+}
+EQUIPMENT {
+    int equipment_id PK
+    varchar type
+    decimal cost
+    smallint lifespan_years
+    int room_id FK
+}
+SECTIONS {
+    int section_id PK
+    varchar name
+    int staff_id FK
+    int room_id FK
+}
+STAFF {
+    int staff_id PK
+    varchar first_name
+    varchar last_name
+    varchar job_title
+    varchar email UK
+}
+GENRES {
+    int genre_id PK
+    varchar name UK
+}
+AUTHORS {
+    int author_id PK
+    varchar first_name
+    varchar last_name
+}
+BOOKS {
+    int book_id PK
+    varchar isbn UK
+    varchar title
+    varchar publisher
+    int quantity
+    int genre_id FK
+    int section_id FK
+}
+BOOK_AUTHORS {
+    int book_id PK, FK
+    int author_id PK, FK
+}
+MEMBERS {
+    int member_id PK
+    varchar first_name
+    varchar last_name
+    varchar email UK
+    varchar phone_number
+}
+CHECKOUTS {
+    int checkout_id PK
+    int member_id FK
+    int book_id FK
+    datetime checkout_datetime
+    date due_date
+    date return_date
+}
+```
